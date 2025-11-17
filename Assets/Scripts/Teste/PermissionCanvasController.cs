@@ -9,37 +9,46 @@ public class PermissionPanelController : MonoBehaviour
 
     private const string PREF_KEY = "TermsAndPermissionsAccepted";
 
-    private void Start()
+    private void Awake()
     {
-        // Se o usuário já aceitou antes → não mostrar mais
-        if (PlayerPrefs.GetInt(PREF_KEY, 0) == 1)
+        // 🔹 Garante que o painel aparece imediatamente quando a cena inicia
+        if (PlayerPrefs.GetInt(PREF_KEY, 0) == 0)
+        {
+            gameObject.SetActive(true);
+        }
+        else
         {
             gameObject.SetActive(false);
-            return;
         }
+    }
 
-        // Começa com o botão desligado
+    private void Start()
+    {
+        if (!gameObject.activeSelf)
+            return;
+
         buttonConfirm.interactable = false;
 
-        // Listener do toggle
-        toggleAgree.onValueChanged.AddListener(OnToggleChanged);
+        toggleAgree.onValueChanged.AddListener((isOn) =>
+        {
+            buttonConfirm.interactable = isOn;
+        });
+
+        buttonConfirm.onClick.AddListener(ConfirmPermission);
     }
 
-    private void OnToggleChanged(bool isOn)
+    private void ConfirmPermission()
     {
-        // Só libera o botão quando marcado
-        buttonConfirm.interactable = isOn;
-    }
-
-    public void OnConfirmPressed()
-    {
-        // Marca como aceito para nunca mais aparecer
         PlayerPrefs.SetInt(PREF_KEY, 1);
         PlayerPrefs.Save();
-
-        // Esconde o painel
         gameObject.SetActive(false);
+    }
 
-        Debug.Log("Permissões aceitas! Painel não aparecerá novamente.");
+    // 🔹 OPÇÃO EXTRA: usar para testar novamente
+    [ContextMenu("Reset Permission (Para Testes)")]
+    public void ResetPermission()
+    {
+        PlayerPrefs.DeleteKey(PREF_KEY);
+        Debug.Log("🔄 Permissão resetada!");
     }
 }
