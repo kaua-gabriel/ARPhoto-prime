@@ -6,35 +6,37 @@ using System.Collections;
 public class TrashZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Imagens da Lixeira")]
-    public Image normalImage;      // ícone padrão
-    public Image activeImage;      // ícone quando um item é deletado
+    public Image normalImage;      // ícone normal
+    public Image activeImage;      // ícone quando algo é deletado
 
-    [Header("Configurações Visuais")]
-    public float flashDuration = 0.3f; // tempo que a imagem "ativa" fica visível
+    [Header("Configurações")]
+    public float flashDuration = 0.25f; // tempo do "piscar" ao deletar
 
     private void Start()
     {
-        // Garante que só a imagem normal aparece no início
         if (normalImage != null) normalImage.enabled = true;
         if (activeImage != null) activeImage.enabled = false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // Efeito simples de hover (ex.: aumentar escala levemente)
+        // efeito leve
         transform.localScale = Vector3.one * 1.1f;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // Volta ao tamanho original
         transform.localScale = Vector3.one;
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        var dropped = eventData.pointerDrag;
-        if (dropped != null && dropped.CompareTag("IconClone"))
+        GameObject dropped = eventData.pointerDrag;
+
+        if (dropped == null) return;
+
+        // Só deleta ícones arrastáveis
+        if (dropped.CompareTag("IconClone"))
         {
             Destroy(dropped);
             StartCoroutine(FlashDelete());
@@ -43,7 +45,7 @@ public class TrashZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoi
 
     private IEnumerator FlashDelete()
     {
-        // Mostra a imagem "ativa" por alguns segundos
+        // Pisca na cor "ativa"
         if (normalImage != null) normalImage.enabled = false;
         if (activeImage != null) activeImage.enabled = true;
 
