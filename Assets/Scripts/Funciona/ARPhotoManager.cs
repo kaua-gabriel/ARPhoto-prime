@@ -12,7 +12,8 @@ public class ARPhotoManager : MonoBehaviour
     public GameObject iconStampPanel;
 
     [Header("Tutorial")]
-    public GameObject canvasTutorialHand; // Novo campo
+    public GameObject canvasTutorialHand;
+    public Button tutorialOkButton; // <-- botão arrastado no inspector
 
     [Header("Preview da Foto")]
     public RawImage photoPreviewImage;
@@ -46,6 +47,8 @@ public class ARPhotoManager : MonoBehaviour
 
         buttonConfirm.onClick.AddListener(OnConfirmClicked);
         buttonBack.onClick.AddListener(OnBackClicked);
+        PlayerPrefs.DeleteKey("TutorialShown");
+
     }
 
     public void TakePhoto()
@@ -109,24 +112,27 @@ public class ARPhotoManager : MonoBehaviour
 
     private void TryShowTutorial()
     {
-        if (canvasTutorialHand == null) return;
-
-        bool shown = PlayerPrefs.GetInt(TutorialShownKey, 0) == 1;
-        if (!shown)
+        if (canvasTutorialHand == null || tutorialOkButton == null)
         {
-            canvasTutorialHand.SetActive(true);
-
-            // tenta achar o botão dentro do canvas
-            Button okBtn = canvasTutorialHand.GetComponentInChildren<Button>();
-            if (okBtn != null)
-                okBtn.onClick.AddListener(() =>
-                {
-                    PlayerPrefs.SetInt(TutorialShownKey, 1);
-                    PlayerPrefs.Save();
-                    canvasTutorialHand.SetActive(false);
-                });
+            Debug.LogError("Tutorial: Canvas ou Botão não atribuídos!");
+            return;
         }
+
+        // Sempre mostrar
+        canvasTutorialHand.SetActive(true);
+
+        // Remove listeners antigos
+        tutorialOkButton.onClick.RemoveAllListeners();
+
+        // Fecha apenas quando o usuário clicar
+        tutorialOkButton.onClick.AddListener(() =>
+        {
+            canvasTutorialHand.SetActive(false);
+        });
     }
+
+
+
 
     private void OnConfirmClicked()
     {
@@ -237,7 +243,7 @@ public class ARPhotoManager : MonoBehaviour
     {
         feedbackText.text = message;
         feedbackText.gameObject.SetActive(true);
-        StopAllCoroutines();
+        StopCoroutine(HideFeedback());
         StartCoroutine(HideFeedback());
     }
 
@@ -249,18 +255,44 @@ public class ARPhotoManager : MonoBehaviour
 
     private Texture2D CapturePreviewWithIcons()
     {
-        // Garante que preview e ícones estão visíveis
+        // se não houver preview, volta a original
         if (canvasPreviewUI == null || photoPreviewImage == null)
             return capturedTexture;
 
-        RectTransform previewRect = photoPreviewImage.GetComponent<RectTransform>();
-        Vector2 size = previewRect.rect.size;
+        // tamanho exato da área do RawImage
+        RectTransform rt = photoPreviewImage.rectTransform;
 
-        // Captura a tela incluindo ícones
-        Texture2D screenshot = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
-        screenshot.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
-        screenshot.Apply();
+        Vector3[] corners = new Vector3[4];
+        rt.GetWorldCorners(corners);
 
-        return screenshot;
+        // canto inferior esquerdo
+        float x = corners[0].x;
+        float y = corners[0].y;
+
+        // largura e altura exatas do preview na tela
+        float width = rt.rect.width;
+        float height = rt.rect.height;
+
+        // cria screenshot da tela completa
+        Texture2D fullScreenshot = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        fullScreenshot.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+        fullScreenshot.Apply();
+
+        // cria a textura recortada no tamanho do preview
+        Texture2D cropped = new Texture2D(Mathf.RoundToInt(width), Mathf.RoundToInt(height), TextureFormat.RGB24, false);
+
+        // COPIA pixel a pixel recortando certinho o RawImage com os ícones
+        Color[] px = fullScreenshot.GetPixels(
+            Mathf.RoundToInt(x),
+            Mathf.RoundToInt(y),
+            Mathf.RoundToInt(width),
+            Mathf.RoundToInt(height)
+        );
+
+        cropped.SetPixels(px);
+        cropped.Apply();
+
+        return cropped;
     }
+
 }
