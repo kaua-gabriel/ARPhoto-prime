@@ -85,5 +85,10 @@ public class DraggableIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
+
+        // 🔥 IMPORTANTE: garante que a lixeira receba o evento de Drop
+        eventData.pointerDrag = gameObject;
+        ExecuteEvents.ExecuteHierarchy(transform.parent.gameObject, eventData, ExecuteEvents.dropHandler);
     }
+
 }

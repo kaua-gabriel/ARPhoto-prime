@@ -31,6 +31,9 @@ public class ARPhotoManager : MonoBehaviour
     private int photosSent = 0;
     private bool isCapturing = false;
 
+    [Header("Tela Final")]
+    public GameObject finalScreenCanvas;
+
     private const string TutorialShownKey = "TutorialShown";
 
     private void Start()
@@ -69,7 +72,7 @@ public class ARPhotoManager : MonoBehaviour
         isCapturing = true;
 
         canvasCameraUI.SetActive(false);
-        feedbackText.text = "📸 Capturando...";
+        feedbackText.text = " Capturando...";
         feedbackText.gameObject.SetActive(true);
 
         yield return new WaitForEndOfFrame();
@@ -132,8 +135,6 @@ public class ARPhotoManager : MonoBehaviour
     }
 
 
-
-
     private void OnConfirmClicked()
     {
         if (capturedTexture == null || isCapturing) return;
@@ -183,31 +184,33 @@ public class ARPhotoManager : MonoBehaviour
         form.AddBinaryData("photo_clean", cleanImage, "foto_" + baseName + "_clean.jpg", "image/jpeg");
         form.AddBinaryData("photo_composed", composedImage, "foto_" + baseName + "_icons.jpg", "image/jpeg");
 
-        using (UnityWebRequest www = UnityWebRequest.Post("https://webhook.site/a7d15bed-2931-4ddb-8777-a4077b9a5b52", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("https://webhook.site/5b60b0fa-104e-483e-b0a8-b075b8972cd9", form))
         {
             www.timeout = 15;
             var operation = www.SendWebRequest();
 
             while (!operation.isDone)
             {
-                ShowFeedback($"📤 Enviando... {(int)(www.uploadProgress * 100)}%");
+                ShowFeedback($" Enviando... {(int)(www.uploadProgress * 100)}%");
                 yield return null;
             }
 
             if (www.result == UnityWebRequest.Result.Success)
             {
                 photosSent++;
-                ShowFeedback("✅ Fotos enviadas com sucesso!");
+                ShowFeedback(" Fotos enviadas com sucesso!");
             }
             else
             {
-                ShowFeedback("❌ Erro ao enviar: " + www.error);
+                ShowFeedback(" Erro ao enviar: " + www.error);
             }
-        }
 
-        buttonConfirm.interactable = true;
-        buttonBack.interactable = true;
-    }
+            finalScreenCanvas.SetActive(true);
+
+            buttonConfirm.interactable = true;
+            buttonBack.interactable = true;
+        }
+        }
 
     private Texture2D ResizeTexture(Texture2D source, float scale)
     {
