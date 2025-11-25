@@ -97,7 +97,11 @@ public class ARPhotoManager : MonoBehaviour
         Destroy(rt);
 
         // Preview leve
-        Texture2D previewTexture = ResizeTexture(capturedTexture, 0.25f);
+        int pw = Mathf.RoundToInt(capturedTexture.width * 0.25f);
+        int ph = Mathf.RoundToInt(capturedTexture.height * 0.25f);
+
+        Texture2D previewTexture = ResizeTexture(capturedTexture, pw, ph);
+
         photoPreviewImage.texture = previewTexture;
 
         canvasPreviewUI.SetActive(true);
@@ -142,13 +146,21 @@ public class ARPhotoManager : MonoBehaviour
     private IEnumerator SendBothPhotos()
     {
         // ===================== FOTO CLEAN =====================
-        byte[] cleanJpg = ResizeTexture(capturedTexture, 0.5f).EncodeToJPG(85);
+        int newW = capturedTexture.width / 2;
+        int newH = capturedTexture.height / 2;
+
+        byte[] cleanJpg = ResizeTexture(capturedTexture, newW, newH).EncodeToJPG(85);
+
 
         // ===================== FOTO COM ÍCONES =====================
         Texture2D composedTexture = null;
         yield return StartCoroutine(CapturePreviewCoroutine(tex => composedTexture = tex));
 
-        byte[] composedJpg = ResizeTexture(composedTexture, 0.5f).EncodeToJPG(85);
+        int newW2 = composedTexture.width / 2;
+        int newH2 = composedTexture.height / 2;
+
+        byte[] composedJpg = ResizeTexture(composedTexture, newW2, newH2).EncodeToJPG(85);
+
 
         // ===================== ENVIO =====================
         string baseName = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
@@ -186,9 +198,7 @@ public class ARPhotoManager : MonoBehaviour
 
     }
 
-    // ================================================================
-    // VOLTAR
-    // ================================================================
+    
     private void OnBackClicked()
     {
         canvasPreviewUI.SetActive(false);
@@ -200,26 +210,24 @@ public class ARPhotoManager : MonoBehaviour
         ShowFeedback("Foto descartada");
     }
 
-    // ================================================================
-    // HELPERS
-    // ================================================================
-    private Texture2D ResizeTexture(Texture2D source, float scale)
-    {
-        int width = Mathf.RoundToInt(source.width * scale);
-        int height = Mathf.RoundToInt(source.height * scale);
 
-        RenderTexture rt = new RenderTexture(width, height, 24);
+    private Texture2D ResizeTexture(Texture2D source, int newWidth, int newHeight)
+    {
+        RenderTexture rt = new RenderTexture(newWidth, newHeight, 24);
         Graphics.Blit(source, rt);
 
-        Texture2D tex = new Texture2D(width, height, source.format, false);
         RenderTexture.active = rt;
-        tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+
+        Texture2D tex = new Texture2D(newWidth, newHeight, TextureFormat.RGB24, false);
+        tex.ReadPixels(new Rect(0, 0, newWidth, newHeight), 0, 0);
         tex.Apply();
 
         RenderTexture.active = null;
         rt.Release();
+
         return tex;
     }
+
 
     private void ShowFeedback(string msg)
     {
