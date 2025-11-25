@@ -6,14 +6,14 @@ using TMPro;
 
 public class ARPhotoManager : MonoBehaviour
 {
-    [Header("UI Principal (Cena da Câmera)")]
+    [Header("UI Principal")]
     public GameObject canvasCameraUI;
     public GameObject canvasPreviewUI;
     public GameObject iconStampPanel;
 
     [Header("Tutorial")]
     public GameObject canvasTutorialHand;
-    public Button tutorialOkButton; // <-- botão arrastado no inspector
+    public Button tutorialOkButton;
 
     [Header("Preview da Foto")]
     public RawImage photoPreviewImage;
@@ -34,8 +34,6 @@ public class ARPhotoManager : MonoBehaviour
     [Header("Tela Final")]
     public GameObject finalScreenCanvas;
 
-    private const string TutorialShownKey = "TutorialShown";
-
     private void Start()
     {
         canvasCameraUI.SetActive(true);
@@ -50,10 +48,11 @@ public class ARPhotoManager : MonoBehaviour
 
         buttonConfirm.onClick.AddListener(OnConfirmClicked);
         buttonBack.onClick.AddListener(OnBackClicked);
-        PlayerPrefs.DeleteKey("TutorialShown");
-
     }
 
+    // ================================================================
+    // CAPTURA A FOTO ORIGINAL EM ALTA RESOLUÇÃO
+    // ================================================================
     public void TakePhoto()
     {
         if (isCapturing) return;
@@ -72,7 +71,7 @@ public class ARPhotoManager : MonoBehaviour
         isCapturing = true;
 
         canvasCameraUI.SetActive(false);
-        feedbackText.text = " Capturando...";
+        feedbackText.text = "Capturando...";
         feedbackText.gameObject.SetActive(true);
 
         yield return new WaitForEndOfFrame();
@@ -81,124 +80,98 @@ public class ARPhotoManager : MonoBehaviour
         int width = Screen.width * scaleFactor;
         int height = Screen.height * scaleFactor;
 
-        RenderTexture renderTexture = new RenderTexture(width, height, 24);
+        RenderTexture rt = new RenderTexture(width, height, 24);
         Camera mainCamera = Camera.main;
-        mainCamera.targetTexture = renderTexture;
 
-        Texture2D capturedTextureHD = new Texture2D(width, height, TextureFormat.RGB24, false);
+        mainCamera.targetTexture = rt;
         mainCamera.Render();
-        RenderTexture.active = renderTexture;
-        capturedTextureHD.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        capturedTextureHD.Apply();
+
+        RenderTexture.active = rt;
+
+        capturedTexture = new Texture2D(width, height, TextureFormat.RGB24, false);
+        capturedTexture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        capturedTexture.Apply();
 
         mainCamera.targetTexture = null;
         RenderTexture.active = null;
-        Destroy(renderTexture);
+        Destroy(rt);
 
-        capturedTexture = capturedTextureHD;
-
-        // 🔹 Cria uma cópia reduzida só para exibir (evita travamento)
-        Texture2D previewTexture = ResizeTexture(capturedTextureHD, 0.25f);
+        // Preview leve
+        Texture2D previewTexture = ResizeTexture(capturedTexture, 0.25f);
         photoPreviewImage.texture = previewTexture;
 
-        feedbackText.gameObject.SetActive(false);
         canvasPreviewUI.SetActive(true);
+        feedbackText.gameObject.SetActive(false);
 
         if (iconStampPanel != null)
             iconStampPanel.SetActive(true);
 
-        // 🔹 Mostra tutorial apenas se for a primeira vez
         TryShowTutorial();
-
         isCapturing = false;
     }
 
+    // ================================================================
+    // TUTORIAL
+    // ================================================================
     private void TryShowTutorial()
     {
-        if (canvasTutorialHand == null || tutorialOkButton == null)
-        {
-            Debug.LogError("Tutorial: Canvas ou Botão não atribuídos!");
-            return;
-        }
-
-        // Sempre mostrar
         canvasTutorialHand.SetActive(true);
 
-        // Remove listeners antigos
         tutorialOkButton.onClick.RemoveAllListeners();
-
-        // Fecha apenas quando o usuário clicar
         tutorialOkButton.onClick.AddListener(() =>
         {
             canvasTutorialHand.SetActive(false);
         });
     }
 
-
+    // ================================================================
+    // CONFIRMAR FOTO → SALVAR 2 IMAGENS
+    // ================================================================
     private void OnConfirmClicked()
     {
         if (capturedTexture == null || isCapturing) return;
 
-        ShowFeedback("📤 Preparando foto...");
         buttonConfirm.interactable = false;
         buttonBack.interactable = false;
 
-        // Cria cópia reduzida e envia em background
-        Texture2D resized = ResizeTexture(capturedTexture, 0.5f);
-        byte[] jpgData = resized.EncodeToJPG(85);
+        ShowFeedback("📤 Preparando foto...");
 
-        StartCoroutine(SendPhotoToServer(jpgData));
-
-        ResetPhotoState(); // Usuário pode continuar
+        StartCoroutine(SendBothPhotos());
     }
 
-    private void OnBackClicked()
+    private IEnumerator SendBothPhotos()
     {
-        if (isCapturing) return;
+        // ===================== FOTO CLEAN =====================
+        byte[] cleanJpg = ResizeTexture(capturedTexture, 0.5f).EncodeToJPG(85);
 
-        if (capturedTexture != null)
-            Destroy(capturedTexture);
+        // ===================== FOTO COM ÍCONES =====================
+        Texture2D composedTexture = null;
+        yield return StartCoroutine(CapturePreviewCoroutine(tex => composedTexture = tex));
 
-        capturedTexture = null;
-        photoPreviewImage.texture = null;
+        byte[] composedJpg = ResizeTexture(composedTexture, 0.5f).EncodeToJPG(85);
 
-        canvasPreviewUI.SetActive(false);
-        canvasCameraUI.SetActive(true);
-
-        if (iconStampPanel != null)
-            iconStampPanel.SetActive(false);
-
-        ShowFeedback("Foto descartada");
-    }
-
-    private IEnumerator SendPhotoToServer(byte[] cleanImage)
-    {
-        // Aqui vamos capturar também a imagem com ícones
-        Texture2D composedTexture = CapturePreviewWithIcons();
-        Texture2D resizedComposed = ResizeTexture(composedTexture, 0.5f);
-        byte[] composedImage = resizedComposed.EncodeToJPG(85);
-
+        // ===================== ENVIO =====================
         string baseName = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
-        WWWForm form = new WWWForm();
 
-        form.AddBinaryData("photo_clean", cleanImage, "foto_" + baseName + "_clean.jpg", "image/jpeg");
-        form.AddBinaryData("photo_composed", composedImage, "foto_" + baseName + "_icons.jpg", "image/jpeg");
+        WWWForm form = new WWWForm();
+        form.AddBinaryData("photo_clean", cleanJpg, "foto_" + baseName + "_clean.jpg", "image/jpeg");
+        form.AddBinaryData("photo_composed", composedJpg, "foto_" + baseName + "_icons.jpg", "image/jpeg");
 
         using (UnityWebRequest www = UnityWebRequest.Post("https://webhook.site/5b60b0fa-104e-483e-b0a8-b075b8972cd9", form))
         {
             www.timeout = 15;
-            var operation = www.SendWebRequest();
+            var op = www.SendWebRequest();
 
-            while (!operation.isDone)
+            while (!op.isDone)
             {
-                ShowFeedback($" Enviando... {(int)(www.uploadProgress * 100)}%");
+                ShowFeedback(" Enviando... " + (int)(www.uploadProgress * 100) + "%");
                 yield return null;
             }
 
             if (www.result == UnityWebRequest.Result.Success)
             {
-                photosSent++;
                 ShowFeedback(" Fotos enviadas com sucesso!");
+                photosSent++;
             }
             else
             {
@@ -210,92 +183,94 @@ public class ARPhotoManager : MonoBehaviour
             buttonConfirm.interactable = true;
             buttonBack.interactable = true;
         }
-        }
 
-    private Texture2D ResizeTexture(Texture2D source, float scale)
-    {
-        int width = Mathf.RoundToInt(source.width * scale);
-        int height = Mathf.RoundToInt(source.height * scale);
-        Texture2D result = new Texture2D(width, height, source.format, false);
-        RenderTexture rt = new RenderTexture(width, height, 24);
-        Graphics.Blit(source, rt);
-        RenderTexture.active = rt;
-        result.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        result.Apply();
-        RenderTexture.active = null;
-        rt.Release();
-        return result;
     }
 
-    private void ResetPhotoState()
+    // ================================================================
+    // VOLTAR
+    // ================================================================
+    private void OnBackClicked()
     {
-        if (capturedTexture != null)
-            Destroy(capturedTexture);
-
-        capturedTexture = null;
-        photoPreviewImage.texture = null;
-
         canvasPreviewUI.SetActive(false);
         canvasCameraUI.SetActive(true);
 
         if (iconStampPanel != null)
             iconStampPanel.SetActive(false);
+
+        ShowFeedback("Foto descartada");
     }
 
-    private void ShowFeedback(string message)
+    // ================================================================
+    // HELPERS
+    // ================================================================
+    private Texture2D ResizeTexture(Texture2D source, float scale)
     {
-        feedbackText.text = message;
+        int width = Mathf.RoundToInt(source.width * scale);
+        int height = Mathf.RoundToInt(source.height * scale);
+
+        RenderTexture rt = new RenderTexture(width, height, 24);
+        Graphics.Blit(source, rt);
+
+        Texture2D tex = new Texture2D(width, height, source.format, false);
+        RenderTexture.active = rt;
+        tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        tex.Apply();
+
+        RenderTexture.active = null;
+        rt.Release();
+        return tex;
+    }
+
+    private void ShowFeedback(string msg)
+    {
+        feedbackText.text = msg;
         feedbackText.gameObject.SetActive(true);
-        StopCoroutine(HideFeedback());
         StartCoroutine(HideFeedback());
     }
 
+
+
     private IEnumerator HideFeedback()
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2.2f);
         feedbackText.gameObject.SetActive(false);
     }
 
-    private Texture2D CapturePreviewWithIcons()
+
+    private IEnumerator CapturePreviewCoroutine(System.Action<Texture2D> callback)
     {
-        // se não houver preview, volta a original
-        if (canvasPreviewUI == null || photoPreviewImage == null)
-            return capturedTexture;
+        // Aguarda o próximo frame ser renderizado
+        yield return new WaitForEndOfFrame();
 
-        // tamanho exato da área do RawImage
+        // 1) Screenshot da tela inteira
+        Texture2D full = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        full.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+        full.Apply();
+
+        // 2) Pega os limites da RawImage em coordenadas de tela
         RectTransform rt = photoPreviewImage.rectTransform;
-
         Vector3[] corners = new Vector3[4];
         rt.GetWorldCorners(corners);
 
-        // canto inferior esquerdo
         float x = corners[0].x;
         float y = corners[0].y;
+        float width = corners[2].x - corners[0].x;
+        float height = corners[2].y - corners[0].y;
 
-        // largura e altura exatas do preview na tela
-        float width = rt.rect.width;
-        float height = rt.rect.height;
+        // 3) Converte para inteiro válido
+        int ix = Mathf.Clamp(Mathf.RoundToInt(x), 0, Screen.width);
+        int iy = Mathf.Clamp(Mathf.RoundToInt(y), 0, Screen.height);
+        int iw = Mathf.Clamp(Mathf.RoundToInt(width), 1, Screen.width - ix);
+        int ih = Mathf.Clamp(Mathf.RoundToInt(height), 1, Screen.height - iy);
 
-        // cria screenshot da tela completa
-        Texture2D fullScreenshot = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
-        fullScreenshot.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
-        fullScreenshot.Apply();
-
-        // cria a textura recortada no tamanho do preview
-        Texture2D cropped = new Texture2D(Mathf.RoundToInt(width), Mathf.RoundToInt(height), TextureFormat.RGB24, false);
-
-        // COPIA pixel a pixel recortando certinho o RawImage com os ícones
-        Color[] px = fullScreenshot.GetPixels(
-            Mathf.RoundToInt(x),
-            Mathf.RoundToInt(y),
-            Mathf.RoundToInt(width),
-            Mathf.RoundToInt(height)
-        );
-
-        cropped.SetPixels(px);
+        // 4) Recorta
+        Texture2D cropped = new Texture2D(iw, ih, TextureFormat.RGB24, false);
+        Color[] pixels = full.GetPixels(ix, iy, iw, ih);
+        cropped.SetPixels(pixels);
         cropped.Apply();
 
-        return cropped;
+        callback?.Invoke(cropped);
     }
+
 
 }
