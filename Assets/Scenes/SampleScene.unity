@@ -692,37 +692,55 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Termos de Uso e Permiss\xE3o de Imagem\n\nEste aplicativo utiliza a c\xE2mera
-    do dispositivo e permite ao usu\xE1rio registrar fotos e adicionar elementos
-    visuais. Para garantir transpar\xEAncia, explicamos abaixo como suas imagens
-    e informa\xE7\xF5es s\xE3o tratadas.\n\n1. Uso da C\xE2mera\n\nO aplicativo solicita
-    acesso \xE0 c\xE2mera do dispositivo exclusivamente para permitir:\n\nCaptura
-    de fotos dentro do pr\xF3prio aplicativo;\n\nVisualiza\xE7\xE3o pr\xE9via da
-    imagem capturada;\n\nAplica\xE7\xE3o de \xEDcones e carimbos sobre a foto antes
-    do envio.\n\nNenhuma foto \xE9 capturada sem a\xE7\xE3o direta do usu\xE1rio.\n\n2.
-    Uso das Imagens Capturadas\n\nAs fotos tiradas por meio do aplicativo s\xE3o
-    utilizadas com as seguintes finalidades:\n\nEnvio para an\xE1lise, registro ou
-    processamento interno da empresa respons\xE1vel;\n\nArmazenamento tempor\xE1rio
-    para permitir edi\xE7\xE3o e visualiza\xE7\xE3o;\n\nRegistro de informa\xE7\xF5es
-    relacionadas ao uso do sistema.\n\nAs imagens n\xE3o s\xE3o compartilhadas com
-    terceiros fora do ambiente de uso autorizado, salvo quando exigido por lei.\n\n3.
-    Armazenamento e Seguran\xE7a\n\nAs imagens enviadas ao servidor s\xE3o tratadas
-    com:\n\nComunica\xE7\xE3o criptografada;\n\nArmazenamento seguro;\n\nAcesso restrito
-    apenas a profissionais autorizados.\n\nAs fotos n\xE3o permanecem no dispositivo
-    ap\xF3s o envio, a menos que o usu\xE1rio escolha salv\xE1-las manualmente.\n\n4.
-    Permiss\xE3o para Processamento\n\nAo utilizar este aplicativo, o usu\xE1rio
-    autoriza que:\n\nAs imagens capturadas sejam enviadas e processadas pelo sistema;\n\nOs
-    dados coletados durante o uso (como data e hor\xE1rio da foto) sejam utilizados
-    para registro;\n\n\xCDcones e elementos adicionados sobre a imagem fa\xE7am parte
-    do material enviado.\n\nNenhum dado \xE9 utilizado para fins comerciais ou publicit\xE1rios.\n\n5.
-    Direitos do Usu\xE1rio\n\nO usu\xE1rio tem direito de:\n\nSolicitar a remo\xE7\xE3o
-    dos registros enviados (quando aplic\xE1vel);\n\nSolicitar esclarecimentos sobre
-    o uso das imagens;\n\nEncerrar o uso do aplicativo a qualquer momento.\n\n6.
-    Concord\xE2ncia\n\nAo marcar a op\xE7\xE3o abaixo e continuar, o usu\xE1rio declara
-    que:\n\nLeu, compreendeu e concorda com os termos apresentados;\n\nAutoriza o
-    uso da c\xE2mera e o envio das fotos conforme descrito;\n\nEst\xE1 ciente de
-    que as imagens ser\xE3o tratadas apenas para fins internos do aplicativo.\n\nCaso
-    n\xE3o concorde, basta n\xE3o marcar a op\xE7\xE3o e fechar esta tela."
+  m_text: "Termos de Uso e Consentimento para Capta\xE7\xE3o e Processamento de Imagens\n\nEste
+    aplicativo utiliza a c\xE2mera do dispositivo para registrar fotos e permitir
+    que o usu\xE1rio adicione elementos gr\xE1ficos antes do envio. Para garantir
+    total transpar\xEAncia e conformidade com a Lei Geral de Prote\xE7\xE3o de Dados
+    (LGPD \u2013 Lei n\xBA 13.709/2018), declaramos abaixo como suas informa\xE7\xF5es
+    s\xE3o tratadas.\n\n1. Finalidade do Uso da C\xE2mera\n\nO aplicativo solicita
+    acesso \xE0 c\xE2mera exclusivamente para:\n\nCapturar fotos dentro do pr\xF3prio
+    aplicativo;\n\nExibir uma pr\xE9via e permitir que o usu\xE1rio confirme ou descarte
+    a imagem;\n\nAplicar \xEDcones, carimbos e elementos visuais na foto antes do
+    envio;\n\nEnviar a foto original e a foto modificada para o servidor do projeto.\n\nNenhuma
+    foto \xE9 tirada automaticamente ou sem a\xE7\xE3o direta do usu\xE1rio.\n\n2.
+    Tratamento e Finalidade das Imagens\n\nAs imagens capturadas podem ser utilizadas
+    para:\n\nRegistro e controle interno relacionado ao uso do sistema;\n\nProcessamento
+    operacional, an\xE1lise ou arquivamento dentro do ambiente autorizado;\n\nIdentifica\xE7\xE3o
+    do contexto de uso, carimbos adicionados e informa\xE7\xF5es associadas \xE0
+    imagem.\n\nAs fotos n\xE3o s\xE3o utilizadas para fins publicit\xE1rios, comerciais
+    ou compartilhadas com terceiros fora do ambiente autorizado, exceto quando houver
+    obriga\xE7\xE3o legal.\n\n3. Dados Adicionais Coletados\n\nDurante o uso, tamb\xE9m
+    podem ser coletadas informa\xE7\xF5es como:\n\nData e hor\xE1rio do registro;\n\nIdentificadores
+    t\xE9cnicos (ID da sess\xE3o, dispositivo ou vers\xE3o do app);\n\nMetadados
+    gerados internamente pelo aplicativo.\n\nNenhum dado sens\xEDvel \xE9 coletado
+    sem aviso expl\xEDcito.\n\n4. Envio, Armazenamento e Reten\xE7\xE3o\n\nAs imagens
+    e dados associados s\xE3o enviados ao servidor utilizando:\n\nComunica\xE7\xE3o
+    criptografada (HTTPS);\n\nArmazenamento seguro, com acesso restrito apenas a
+    profissionais autorizados;\n\nReten\xE7\xE3o pelo per\xEDodo necess\xE1rio para
+    cumprir a finalidade informada.\n\nAs imagens n\xE3o s\xE3o armazenadas no dispositivo
+    do usu\xE1rio ap\xF3s o envio, a menos que ele salve manualmente.\n\n5. Compartilhamento\n\nOs
+    dados poder\xE3o ser compartilhados somente quando:\n\nHouver obriga\xE7\xE3o
+    legal ou ordem judicial;\n\nFor necess\xE1rio para manuten\xE7\xE3o, auditoria
+    ou opera\xE7\xE3o do sistema, sempre com empresas autorizadas e que tamb\xE9m
+    sigam padr\xF5es de prote\xE7\xE3o de dados;\n\nEstiver dentro do prop\xF3sito
+    informado neste termo.\n\nNenhum dado ser\xE1 vendido ou repassado para uso comercial.\n\n6.
+    Direitos do Usu\xE1rio (Titular dos Dados)\n\nConforme a LGPD, o usu\xE1rio pode,
+    a qualquer momento:\n\nSolicitar informa\xE7\xF5es sobre o tratamento dos seus
+    dados;\n\nSolicitar corre\xE7\xE3o ou exclus\xE3o de registros (quando poss\xEDvel
+    e aplic\xE1vel);\n\nRevogar o consentimento;\n\nSolicitar anonimiza\xE7\xE3o
+    ou acesso aos dados pessoais armazenados;\n\nEncerrar o uso do aplicativo.\n\nPara
+    exercer seus direitos, o usu\xE1rio deve entrar em contato pelos canais oficiais
+    do respons\xE1vel pelo sistema.\n\n7. Seguran\xE7a e Responsabilidade\n\nA empresa
+    respons\xE1vel pelo aplicativo se compromete a:\n\nAdotar medidas t\xE9cnicas
+    e organizacionais adequadas;\n\nPrevenir acesso n\xE3o autorizado, vazamentos
+    ou destrui\xE7\xE3o de dados;\n\nUtilizar as imagens exclusivamente para as finalidades
+    descritas neste termo;\n\nGarantir rastreabilidade e controle de acesso interno.\n\n8.
+    Consentimento\n\nAo marcar a op\xE7\xE3o abaixo, o usu\xE1rio declara que:\n\nLeu
+    e compreendeu todos os termos apresentados;\n\nAutoriza o uso da c\xE2mera e
+    o envio das fotos conforme descrito;\n\nConcorda com o tratamento, armazenamento
+    e processamento das imagens;\n\nEst\xE1 ciente de que pode revogar o consentimento
+    e solicitar informa\xE7\xF5es a qualquer momento.\n\nCaso n\xE3o concorde, basta
+    n\xE3o marcar a op\xE7\xE3o e fechar esta tela."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -787,7 +805,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -5.002556, y: 0, z: -3.0015488, w: -154.27571}
+  m_margin: {x: -5.002556, y: 0, z: -3.0015488, w: -263.54135}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1368,8 +1386,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1887083966}
   - {fileID: 1897930975}
+  - {fileID: 1653447867}
   - {fileID: 1427364021}
   - {fileID: 1801395117}
   - {fileID: 1620700973}
@@ -1672,7 +1690,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 53}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &232416490
@@ -1718,8 +1736,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 232416491}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_Value: 1.0000007
-  m_Size: 0.26565084
+  m_Value: 1.0000004
+  m_Size: 0.17313261
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1915,7 +1933,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 72ba85db51fbad3499fd8dedf861e3a4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bbeadc9f836fbb64da945d677d116d67, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2368,8 +2386,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 305564105}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
-  m_Value: 0.5
-  m_Size: 0.5551026
+  m_Value: -0.0000011545711
+  m_Size: 0.55492765
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4277,7 +4295,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: 21.7727}
+  m_AnchoredPosition: {x: 7, y: 21.7727}
   m_SizeDelta: {x: 100, y: 151.6692}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &720422703
@@ -4293,7 +4311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9245283, g: 0.9245283, b: 0.9245283, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9249,7 +9267,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.000016531, y: -0.0005154883}
-  m_SizeDelta: {x: 0.00086975, y: 1225.5}
+  m_SizeDelta: {x: 0.00086975, y: 1880.38}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1338349364
 MonoBehaviour:
@@ -9885,7 +9903,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8e1cbe1c101b75747a6fca2879d88302, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 82a1c13e958ef3d4cbb11fc75d2e833a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10677,7 +10695,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 878810ed36f3f5c44946a83e98049475, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b9315e066c909a4418e6053ff75cd8a1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10717,6 +10735,97 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6014940127005402832, guid: c9ccebac377571141bf69012eacafc49, type: 3}
   m_PrefabInstance: {fileID: 4631900261837318961}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1653447866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1653447867}
+  - component: {fileID: 1653447870}
+  - component: {fileID: 1653447869}
+  - component: {fileID: 1653447868}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1653447867
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653447866}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 5.091004, y: 2.0252872, z: 1.97589}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 228220987}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -10, y: 774}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1653447868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653447866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c4a4ea4b9c74c04d8f508887a1a7eb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minScale: 0.9
+  maxScale: 1.1
+  speed: 4
+--- !u!114 &1653447869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653447866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 3aee5cc4d16529348bb7a613765c7f8a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1653447870
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653447866}
+  m_CullTransparentMesh: 1
 --- !u!1 &1668787202
 GameObject:
   m_ObjectHideFlags: 0
@@ -11085,7 +11194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.24313727, g: 0.015686275, b: 0.5568628, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11528,7 +11637,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 55f595af1ceda6b4ca2e7886f35b178e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cb91be834c0d272479b0d1d1f9923200, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11856,142 +11965,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878604812}
   m_CullTransparentMesh: 1
---- !u!1 &1887083965
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1887083966}
-  - component: {fileID: 1887083968}
-  - component: {fileID: 1887083967}
-  m_Layer: 5
-  m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1887083966
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887083965}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8305999, y: 1.8305999, z: 1.8305999}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 228220987}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 121, y: -232}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1887083967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887083965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Etapa Concluida
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6751399525a32cf48bc61f59d12871aa, type: 2}
-  m_sharedMaterial: {fileID: -6397203111137163034, guid: 6751399525a32cf48bc61f59d12871aa, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 45
-  m_fontSizeBase: 45
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_EmojiFallbackSupport: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: -135.04169, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1887083968
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887083965}
-  m_CullTransparentMesh: 1
 --- !u!1 &1897401660
 GameObject:
   m_ObjectHideFlags: 0
@@ -12156,7 +12129,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c66070cadb8e42d4e89ec263e6bdd86f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7a747a550f4bb33409819ff84c1ab7b7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12681,7 +12654,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.80141, y: 8.454357}
+  m_AnchoredPosition: {x: -0.2, y: 8.454357}
   m_SizeDelta: {x: 226.78607, y: 325.55515}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1959989373
@@ -12727,7 +12700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13322,7 +13295,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -96}
+  m_AnchoredPosition: {x: 72.688065, y: -96}
   m_SizeDelta: {x: 0, y: 221.0377}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2019300919
