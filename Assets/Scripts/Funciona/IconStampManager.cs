@@ -1,20 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class IconStampManager : MonoBehaviour
 {
     [Header("Referências")]
-    public ScrollRect iconScroll;      // ScrollView_Icons
-    public RectTransform dragArea;     // Área onde os ícones podem ser colocados
-    public GameObject iconPrefab;      // Prefab do ícone que será clonado
-    public Canvas canvas;              // Canvas principal (arraste o Canvas_IconStamp)
+    public Transform iconContainer;     // onde estão os ícones originais
+    public RectTransform dragArea;
+    public GameObject iconPrefab;
+    public Canvas canvas;
+
+    [Header("Popup")]
+    public GameObject popupPrefab;      // prefab do popup
+    public RectTransform popupParent;
+
+    [Header("Clones")]
+    public Vector2 cloneSize = new Vector2(40, 40);
 
     private void Start()
     {
-        // Adiciona evento de clique em todos os ícones dentro do Content
-        foreach (Transform child in iconScroll.content)
+        // Adiciona listener para cada ícone
+        for (int i = 0; i < iconContainer.childCount; i++)
         {
+            Transform child = iconContainer.GetChild(i);
             var iconButton = child.GetComponent<Button>();
             if (iconButton == null)
             {
@@ -22,25 +29,61 @@ public class IconStampManager : MonoBehaviour
                 iconButton.transition = Selectable.Transition.None;
             }
 
-            // Captura o sprite do ícone e associa ao evento
-            Sprite iconSprite = child.GetComponent<Image>().sprite;
-            iconButton.onClick.AddListener(() => CreateDraggableIcon(iconSprite));
+            // Captura o sprite e Animator do ícone
+            Image img = child.GetComponent<Image>();
+            Sprite iconSprite = img != null ? img.sprite : null;
+            Animator iconAnimator = child.GetComponent<Animator>();
+
+            // Captura o texto do popup, se tiver (pode criar um componente Text ou TMP no próprio ícone)
+            string popupText = child.name; // ou outro campo de texto que você queira usar
+
+            iconButton.onClick.AddListener(() =>
+            {
+                CreateDraggableIcon(iconSprite, iconAnimator);
+                ShowPopup(popupText, child.position);
+            });
         }
     }
 
-    private void CreateDraggableIcon(Sprite sprite)
+    private void CreateDraggableIcon(Sprite sprite, Animator originalAnimator)
     {
-        // Cria uma nova cópia do prefab
+        if (sprite == null) return;
+
         GameObject newIcon = Instantiate(iconPrefab, dragArea);
 
-        Image img = newIcon.GetComponent<Image>();
-        img.sprite = sprite;
-        img.raycastTarget = true;
-
+        // Tamanho fixo
         RectTransform rect = newIcon.GetComponent<RectTransform>();
-        rect.anchoredPosition = Vector2.zero; // Começa no centro da área
+        rect.anchoredPosition = Vector2.zero;
+        rect.sizeDelta = cloneSize;
+        rect.localScale = Vector3.one;
 
-        // Garante que o novo ícone pode ser arrastado independentemente
+        // Sprite
+        Image img = newIcon.GetComponent<Image>();
+        if (img != null)
+        {
+            img.sprite = sprite;
+            img.raycastTarget = true;
+        }
+
+        // Animator
+        Animator newAnimator = newIcon.GetComponent<Animator>();
+        if (newAnimator != null && originalAnimator != null)
+        {
+            newAnimator.runtimeAnimatorController = originalAnimator.runtimeAnimatorController;
+        }
+
         newIcon.SetActive(true);
+    }
+
+    private void ShowPopup(string text, Vector3 worldPosition)
+    {
+        GameObject popup = Instantiate(popupPrefab, popupParent);
+        popup.transform.position = worldPosition;
+
+        Text popupText = popup.GetComponentInChildren<Text>();
+        if (popupText != null)
+            popupText.text = text;
+
+        popup.SetActive(true);
     }
 }
