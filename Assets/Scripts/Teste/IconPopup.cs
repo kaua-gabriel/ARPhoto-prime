@@ -3,28 +3,41 @@ using UnityEngine.UI;
 
 public class IconPopup : MonoBehaviour
 {
-    public GameObject popup;      // Arrasta o popup correspondente aqui
-    public Button closeButton;    // Botão X do popup
+    [Header("Referências")]
+    public GameObject popup;      // O popup correspondente a este ícone
+    public Button closeButton;    // O botão X que fecha o popup
 
     private void Awake()
     {
-        // Esconde o popup no início
+        // Garante que o popup começa desativado
         if (popup != null)
             popup.SetActive(false);
 
-        // Configura o botão X
+        // Configura o botão de fechar
         if (closeButton != null)
-            closeButton.onClick.AddListener(() => popup.SetActive(false));
+            closeButton.onClick.AddListener(HidePopup);
 
-        // Configura clique no ícone
+        // Configura o clique no ícone (este objeto)
         Button btn = GetComponent<Button>();
         if (btn != null)
-            btn.onClick.AddListener(() => ShowPopup());
+            btn.onClick.AddListener(ShowPopup);
     }
 
     private void ShowPopup()
     {
         if (popup != null)
             popup.SetActive(true);
+
+        if (closeButton != null)
+            closeButton.gameObject.SetActive(true); // ativa o X
+    }
+
+    private void HidePopup()
+    {
+        if (popup != null)
+            popup.SetActive(false);
+
+        if (closeButton != null)
+            closeButton.gameObject.SetActive(false); // desativa o X
     }
 }
